@@ -16,15 +16,22 @@
 //   @debug 'target is not valid';
 // }
 
-@function get-color($type, $level) { 
-  @if map.has-key($colors, $type) { 
-    $color-levels: map.get($colors, $type); 
-    @if map.has-key($color-levels, $level) { 
-      @return map.get($color-levels, $level); } 
-    @else { 
-      @debug 'Invalid color level'; @return null; } } 
-    @else { 
-      @debug 'Invalid color type'; @return null; } }
+@function get-color($type, $level) {
+  @if map.has-key($colors, $type) {
+    $color-levels: map.get($colors, $type);
+    @if map.has-key($color-levels, $level) {
+      @return map.get($color-levels, $level);
+    } @else {
+      @warn 'Invalid color level';
+      @debug 'Invalid color level';
+      @return null;
+    }
+  } @else {
+    @warn 'Invalid color type';
+    @debug 'Invalid color type';
+    @return null;
+  }
+}
 
-
-$color: get-color('successs', '100'); @debug $color;
+$color: get-color('success', '100');
+@debug $color;
